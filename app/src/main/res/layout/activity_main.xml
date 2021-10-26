@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Money Exchanger app"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/tvBaseCodeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:layout_marginLeft="20dp"
+
+        />
+
+    <EditText
+        android:id="@+id/edBaseCodeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="6"
+        android:inputType="text"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvBaseCodeLabel"
+        app:layout_constraintLeft_toRightOf="@id/tvBaseCodeLabel"
+        android:textSize="15sp"
+        />
+
+    <TextView
+        android:id="@+id/tvConvertingValueLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvBaseCodeLabel"
+        app:layout_constraintLeft_toRightOf="@id/edBaseCodeInput"
+        android:textSize="15sp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <EditText
+        android:id="@+id/edConvertingValueInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="6"
+        android:inputType="numberDecimal"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvConvertingValueLabel"
+        app:layout_constraintLeft_toRightOf="@id/tvConvertingValueLabel"
+        android:textSize="15sp"
+
+        />
+
+    <TextView
+        android:id="@+id/tvTargetCodeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To"
+        app:layout_constraintStart_toStartOf="@id/tvBaseCodeLabel"
+        app:layout_constraintTop_toBottomOf="@id/tvConvertingValueLabel"
+        android:layout_marginTop="30dp"
+        android:textSize="15sp"
+        />
+
+    <EditText
+        android:id="@+id/edTargetCodeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="6"
+        android:inputType="text"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvTargetCodeLabel"
+        app:layout_constraintStart_toStartOf="@id/edBaseCodeInput"
+        android:textSize="15sp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/tvConvertedValueLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resulted value: "
+        android:layout_marginTop="30dp"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edTargetCodeInput"
+        />
+
+    <TextView
+        android:id="@+id/tvConvertedValueResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="30dp"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvConvertedValueLabel"
+        />
+
+    <Button
+        android:id="@+id/btnConvert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Convert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="30dp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
