@@ -3,6 +3,7 @@ package com.example.prjmoneyexchange_1931358;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.service.autofill.RegexValidator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvConvertedValueResult;
     EditText edBaseCodeInput,edConvertingValueInput, edTargetCodeInput;
     Button btnConvert;
+    String baseCode = "", targetCode = "";
+    double baseValue = 0;
+    double targetValue = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +55,102 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnConvert = findViewById(R.id.btnConvert);
         btnConvert.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        int id = view.getId();
+        if(id == R.id.btnConvert)
+        {
+            requestApi();
+        }
+    }
+
+    //Validation
+    private void validate_value()
+    {
+        try
+        {
+            baseValue = Double.parseDouble(edConvertingValueInput.getText().toString());
+            if(baseValue <= 0)
+            {
+                throw new Exception("Value input has to be bigger than zero.");
+            }
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getBaseContext(), "Please, enter a correct input for the value.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void validate_targetCode()
+    {
+        try
+        {
+            targetCode = edTargetCodeInput.getText().toString();
+            //Validate Regex for 3 chars and only string
+            //Check if target code exists
+//            if()
+//            {
+//                throw new Exception("Target code can only have three chars.");
+//                return "";
+//            }
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getBaseContext(), "Please, enter a correct input for the target code.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void validate_baseCode()
+    {
+        try
+        {
+            baseCode = edBaseCodeInput.getText().toString();
+            //Validate Regex for 3 chars and only string
+            //Check if base code exists
+//            if()
+//            {
+//                throw new Exception("Target code can only have three chars.");
+//                return "";
+//            }
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getBaseContext(), "Please, enter a correct input for the base code.", Toast.LENGTH_LONG).show();
+        }
+    }
+    public double convertValue(double rate, double baseValue)
+    {
+        return (rate * baseValue);
+    }
+
+    private void requestApi()
+    {
+        try
+        {
+            validate_baseCode();
+            validate_targetCode();
+            validate_value();
+
+            if(baseCode.equals("") || targetCode.equals("") || baseValue == 0)
+            {
+                throw new Exception();
+            }
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://v6.exchangerate-api.com/v6/3808ca223ddc4c6c54c4d05b/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         iExchangeRate iExchangeRate = retrofit.create(iExchangeRate.class);
-        //Call<List<Exchange>> call = jsonPlaceHolderApi.getConversionRates(edBaseCodeInput.toString());
-        Call<JsonObject> call = iExchangeRate.getConversionRates("USD");
+        //Call<JsonObject> call = iExchangeRate.getConversionRates("USD");
+        Call<JsonObject> call = iExchangeRate.getConversionRates(baseCode);
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -66,8 +160,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     tvConvertedValueResult.setText("Code: " + response.code());
                     return;
                 }
-                //Was successful
 
+                //Was successful
                 String jsonString = new Gson().toJson(response.body());
                 Log.i("Response Body", jsonString);
 
@@ -82,17 +176,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     //Now im inside conversion_rates
                     JsonObject conversion_rates = json.getAsJsonObject("conversion_rates");
-                    double target_value = conversion_rates.get("BRL").getAsDouble();
-                    tvConvertedValueResult.setText(String.valueOf(target_value));
-
+                    double rate = conversion_rates.get("BRL").getAsDouble();
+                    targetValue = convertValue(baseValue, rate);
+                    tvConvertedValueResult.setText(String.valueOf(targetValue) + " " + targetCode);
                 }
                 catch (Exception e)
                 {
                     Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
                     Log.i("Error", e.getMessage());
                 }
-
-
             }
 
             @Override
@@ -100,42 +192,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvConvertedValueResult.setText(t.getMessage());
             }
         });
-
     }
 
-    @Override
-    public void onClick(View view)
-    {
-        int id = view.getId();
-        if(id == R.id.btnConvert)
-        {
-            //Test call Using Volley
-            // Instantiate the RequestQueue.
-//            RequestQueue queue = Volley.newRequestQueue(this);
-//            String url ="https://v6.exchangerate-api.com/v6/3808ca223ddc4c6c54c4d05b/pair/USD/BRL";
-//            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,url,null, new Response.Listener<JSONObject>() {
-//                @Override
-//                public void onResponse(JSONObject response) {
-//                    //String conversionRate = "";
-//                    double conversionRate = 0;
-//                    try {
-//                        conversionRate = response.getDouble("conversion_rate");
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    Toast.makeText(MainActivity.this,"Conversion Rate = " + conversionRate, Toast.LENGTH_LONG).show();
-//
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    Toast.makeText(MainActivity.this,error.toString(), Toast.LENGTH_LONG).show();
-//                }
-//            });
-//            queue.add(request);
-
-
-        }
-    }
 }
