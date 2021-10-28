@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Money Exchanger app"
+        android:text="@string/money_exchanger_app"
         android:textSize="30sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,12 +24,12 @@
         android:id="@+id/tvBaseCodeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From"
+        android:text="@string/baseCode_label"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:textSize="15sp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="50dp"
 
         />
 
@@ -42,38 +42,41 @@
         app:layout_constraintBaseline_toBaselineOf="@id/tvBaseCodeLabel"
         app:layout_constraintLeft_toRightOf="@id/tvBaseCodeLabel"
         android:textSize="15sp"
+        android:textAlignment="center"
         />
 
     <TextView
         android:id="@+id/tvConvertingValueLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvBaseCodeLabel"
-        app:layout_constraintLeft_toRightOf="@id/edBaseCodeInput"
+        android:text="@string/value_label"
+        app:layout_constraintTop_toBottomOf="@id/tvBaseCodeLabel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
         android:textSize="15sp"
-        android:layout_marginLeft="20dp"
         />
 
     <EditText
         android:id="@+id/edConvertingValueInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="6"
+        android:ems="8"
         android:inputType="numberDecimal"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvConvertingValueLabel"
-        app:layout_constraintLeft_toRightOf="@id/tvConvertingValueLabel"
+        app:layout_constraintTop_toBottomOf="@id/tvConvertingValueLabel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:textSize="15sp"
-
+        android:textAlignment="center"
         />
-
     <TextView
         android:id="@+id/tvTargetCodeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To"
-        app:layout_constraintStart_toStartOf="@id/tvBaseCodeLabel"
-        app:layout_constraintTop_toBottomOf="@id/tvConvertingValueLabel"
+        android:text="@string/targetCode_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvBaseCodeLabel"
+        app:layout_constraintRight_toLeftOf="@id/edTargetCodeInput"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:textSize="15sp"
         />
@@ -85,9 +88,10 @@
         android:ems="6"
         android:inputType="text"
         app:layout_constraintBaseline_toBaselineOf="@id/tvTargetCodeLabel"
-        app:layout_constraintStart_toStartOf="@id/edBaseCodeInput"
+        app:layout_constraintRight_toRightOf="parent"
         android:textSize="15sp"
-
+        android:layout_marginRight="50dp"
+        android:textAlignment="center"
         />
 
 
@@ -95,12 +99,12 @@
         android:id="@+id/tvConvertedValueLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resulted value: "
+        android:text="@string/resultedValue_label"
         android:layout_marginTop="30dp"
         android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edTargetCodeInput"
+        app:layout_constraintTop_toBottomOf="@id/edConvertingValueInput"
         />
 
     <TextView
@@ -119,10 +123,14 @@
         android:id="@+id/btnConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Convert"
+        android:text="@string/convert_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="30dp"
+        android:background="@drawable/button_selector"
+        android:textSize="20sp"
+        android:padding="15dp"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

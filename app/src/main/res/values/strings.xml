@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">prjMoneyExchange_1931358</string>
+    <string name="money_exchanger_app">Money Exchanger app</string>
+    <string name="baseCode_label">From</string>
+    <string name="targetCode_label">To</string>
+    <string name="value_label">Value</string>
+    <string name="resultedValue_label">Resulted value:</string>
+    <string name="convert_button">Convert</string>
 </resources>
