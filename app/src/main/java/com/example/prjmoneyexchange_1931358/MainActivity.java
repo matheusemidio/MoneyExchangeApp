@@ -261,6 +261,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //rate = conversion_rates.get(baseCode).getAsDouble();
                     //double targetValue = convertValue(baseValue, rate);
                     //tvConvertedValueResult.setText(String.valueOf(targetValue) + " " + targetCode);
+
+                    //double rate = conversion_rates.get("BRL").getAsDouble();
+                    rate = conversion_rates.get(targetCode).getAsDouble();
+                    //rate = test_rates.get(targetCode).getAsDouble();
+                    targetValue = convertValue(baseValue, rate);
+                    tvConvertedValueResult.setText(String.valueOf(targetValue) + " " + targetCode);
                 }
                 catch (Exception e)
                 {
@@ -291,15 +297,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             try
             {
+                JsonObject test_rates;
+                //Validate and fill the base code class variable
                 validate_baseCode();
+                //Validate and fill the target code class variable
                 validate_targetCode();
+                //Validate and fill the base value class variable
                 validate_value();
-                //conversion_rates = requestApiConversion(baseCode);
+
+                //test_rates = requestApiConversion(baseCode);
                 requestApiConversion(baseCode);
-                //double rate = conversion_rates.get("BRL").getAsDouble();
-                rate = conversion_rates.get(targetCode).getAsDouble();
-                targetValue = convertValue(baseValue, rate);
-                tvConvertedValueResult.setText(String.valueOf(targetValue) + " " + targetCode);
+
             }
             catch (Exception e)
             {
